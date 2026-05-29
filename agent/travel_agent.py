@@ -6,8 +6,17 @@ from tools.places_tool import search_places
 from tools.weather_tool import get_weather
 from tools.budget_tool import estimate_budget
 import re
+import os, streamlit as st
 
-load_dotenv()
+
+def get_groq_key():
+    try:
+        return st.secrets["GROQ_API_KEY"]
+    except:
+        from dotenv import load_dotenv
+        load_dotenv()
+        return os.getenv("GROQ_API_KEY")
+
 
 def run_travel_agent(from_city: str, to_city: str, num_days: int, budget: int) -> str:
     """Run the travel agent with explicitly provided cities."""
